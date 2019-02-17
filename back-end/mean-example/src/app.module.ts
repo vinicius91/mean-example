@@ -6,6 +6,7 @@ import { Configuration } from './shared/configuration/configuration.enum';
 import { ConfigurationService } from './shared/configuration/configuration.service';
 import { SharedModule } from './shared/shared.module';
 import { UserModule } from './user/user.module';
+import { RecipeModule } from './recipe/recipe.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { UserModule } from './user/user.module';
       inject: [ConfigurationService],
     }),
     UserModule,
+    RecipeModule,
   ],
   controllers: [AppController],
   providers: [AppService],

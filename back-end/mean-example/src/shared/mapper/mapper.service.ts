@@ -21,7 +21,7 @@ export class MapperService {
       .forSourceMember('password', opts => opts.ignore());
 
     config
-      .createMap('Todo', 'TodoVm')
+      .createMap('Recipe', 'RecipeVm')
       .forSourceMember('_id', opts => opts.ignore());
   }
 }
