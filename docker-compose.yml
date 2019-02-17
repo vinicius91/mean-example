@@ -1,15 +1,53 @@
 version: "3.5"
 
+networks:
+  app-tier:
+    driver: bridge
+
+volumes:
+  data:
+
 services:
   front-end:
-    container_name: front-end
+    container_name: mean-front-end
     build:
       context: .
       dockerfile: ./front-end/mean-example/Dockerfile
     volumes:
       - "./front-end/mean-example:/usr/src/app"
       - "/usr/src/app/node_modules"
+    networks:
+      - app-tier
     ports:
       - "4200:4200"
     environment:
       - NODE_ENV=development
+    depends_on:
+      - back-end
+  back-end:
+    container_name: mean-back-end
+    build:
+      context: .
+      dockerfile: ./back-end/mean-example/Dockerfile
+    volumes:
+      - "./back-end/mean-example:/usr/src/app"
+      - "/usr/src/app/node_modules"
+    networks:
+      - app-tier
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - mongodb
+  mongodb:
+    image: "bitnami/mongodb:latest"
+    container_name: mean-mongo
+    networks:
+      - app-tier
+    ports:
+      - "27017:27017"
+    volumes:
+      - data:/bitnami
+    environment:
+      - MONGODB_ROOT_PASSWORD=password123
