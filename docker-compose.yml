@@ -46,7 +46,7 @@ services:
     networks:
       - app-tier
     ports:
-      - "27017:27017"
+      - "27018:27018"
     volumes:
       - data:/bitnami
     environment:
@@ -54,3 +54,4 @@ services:
       - MONGODB_USERNAME=mean-example
       - MONGODB_PASSWORD=password123
       - MONGODB_DATABASE=mean-example
+      - MONGODB_PORT_NUMBER=27018
